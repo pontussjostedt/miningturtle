@@ -30,18 +30,29 @@ end
 
 function MoveRelative(dx, dy, dz)
     if dx ~= 0 then
-        TurnToCardinal(ClampIntBin(dx) + 2)
+        if dx > 0 then
+            TurnToCardinal(POSITIVE_X)
+        elseif dx < 0 then
+            TurnToCardinal(NEGATIVE_X)
+        end
+
         for i = 1, math.abs(dx) do
             turtle.forward()
         end
     end
 
     if dz ~= 0 then
-        TurnToCardinal(ClampIntBin(dy) + 1)
-        for i = 1, math.abs(dy) do
+        if dz > 0 then
+            TurnToCardinal(POSITIVE_Z)
+        elseif dz < 0 then
+            TurnToCardinal(NEGATIVE_Z)
+        end
+
+        for i = 1, math.abs(dz) do
             turtle.forward()
         end
     end
+
 
     if dy > 0 then
         for i = 1, dy do
@@ -137,10 +148,7 @@ local sx, sy, sz = gps.locate()
 
 
 turtle.forward()
-turtle.forward()
-Left()
-turtle.forward()
-turtle.down()
+
 
 local x, y, z = gps.locate()
 
