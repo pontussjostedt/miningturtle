@@ -21,6 +21,8 @@ end
 function Left()
     turtle.turnLeft()
     TurnCounter = (TurnCounter + 1) % NUMBER_OF_CARDINALS
+
+    PrintDir()
 end
 
 function Right()
@@ -31,6 +33,8 @@ function Right()
         print("hit less than check")
         TurnCounter = TurnCounter + NUMBER_OF_CARDINALS
     end
+
+    PrintDir()
 end
 
 function DirToString(dir)
