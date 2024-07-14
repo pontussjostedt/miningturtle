@@ -10,9 +10,49 @@ local DIRS = {
     [EAST] = "EAST"
 }
 
+local POSITIVE_X = EAST
+local NEGATIVE_X = WEST
+
+local POSITIVE_Z = SOUTH
+local NEGATIVE_Z = NORTH
+
 NUMBER_OF_CARDINALS = 4
 
 TurnCounter = NORTH
+
+function ClampIntBin(num)
+    if num > 0 then
+        return 1
+    elseif num < 0 then
+        return -1
+    end
+end
+
+function MoveRelative(dx, dy, dz)
+    if dx ~= 0 then
+        TurnToCardinal(ClampIntBin(dx) + 1)
+        for i = 1, math.abs(dx) do
+            turtle.forward()
+        end
+    end
+
+    if dz ~= 0 then
+        TurnToCardinal(ClampIntBin(dx) + 2)
+        for i = 1, math.abs(dx) do
+            turtle.forward()
+        end
+    end
+
+    if dy > 0 then
+        for i = 1, dy do
+            turtle.up()
+        end
+    elseif dy < 0 then
+        for i = 1, -1 * dy do
+            turtle.down()
+        end
+    end
+end
 
 function TurnToCardinal(dir)
     local ddir = dir - TurnCounter
@@ -93,10 +133,19 @@ function ReturnHome(sx, sy, sz)
     local dx = x - sx
 end
 
-sx, sy, sz = gps.locate()
+local sx, sy, sz = gps.locate()
 
 
-TurnToCardinal(SOUTH)
+turtle.forward()
+turtle.forward()
+Left()
+turtle.forward()
+turtle.down()
+
+local x, y, z = gps.locate()
+
+MoveRelative(x - sx, y - sy, z - sz)
+
 
 -- while true do
 --     MineSquare(3, 3)
