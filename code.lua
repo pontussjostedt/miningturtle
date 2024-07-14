@@ -30,15 +30,15 @@ end
 
 function MoveRelative(dx, dy, dz)
     if dx ~= 0 then
-        TurnToCardinal(ClampIntBin(dx) + 1)
+        TurnToCardinal(ClampIntBin(dx) + 2)
         for i = 1, math.abs(dx) do
             turtle.forward()
         end
     end
 
     if dz ~= 0 then
-        TurnToCardinal(ClampIntBin(dx) + 2)
-        for i = 1, math.abs(dx) do
+        TurnToCardinal(ClampIntBin(dy) + 1)
+        for i = 1, math.abs(dy) do
             turtle.forward()
         end
     end
