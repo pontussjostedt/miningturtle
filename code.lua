@@ -65,25 +65,9 @@ function MoveRelative(dx, dy, dz)
     end
 end
 
-function ToCardinalSpace(dir)
-    dir = dir % NUMBER_OF_CARDINALS
-
-    if dir < 0 then
-        return dir + NUMBER_OF_CARDINALS
-    end
-end
-
 function TurnToCardinal(dir)
-    dir = ToCardinalSpace(dir)
-    local ddir = (dir - TurnCounter) % NUMBER_OF_CARDINALS
-    if ddir > 0 then
-        for i = 1, ddir do
-            Right()
-        end
-    elseif ddir < 0 then
-        for i = 1, -ddir do
-            Left()
-        end
+    while TurnCounter ~= dir do
+        Left()
     end
 end
 
@@ -157,6 +141,9 @@ end
 local sx, sy, sz = gps.locate()
 
 
+turtle.forward()
+turtle.forward()
+Left()
 turtle.forward()
 
 
