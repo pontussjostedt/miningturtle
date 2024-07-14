@@ -98,6 +98,8 @@ function Left()
     PrintDir()
 end
 
+-- HEH
+
 function Right()
     turtle.turnRight()
     TurnCounter = (TurnCounter - 1) % NUMBER_OF_CARDINALS
