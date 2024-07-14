@@ -34,6 +34,13 @@ function MineSquare(x, z)
 end
 
 DownUntilStop()
+
+local startPos = gps.locate()
+print(startPos)
+print(startPos.x)
+print(startPos.y)
+print(startPos.z)
+exit(0)
 MineSquare(3, 3)
 turtle.turnLeft()
 turtle.turnLeft()
