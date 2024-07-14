@@ -14,6 +14,10 @@ NUMBER_OF_CARDINALS = 4
 
 TurnCounter = NORTH
 
+function PrintDir()
+    print(DirToString(TurnCounter))
+end
+
 function Left()
     turtle.turnLeft()
     TurnCounter = (TurnCounter + 1) % NUMBER_OF_CARDINALS
