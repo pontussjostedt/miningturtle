@@ -15,12 +15,12 @@ NUMBER_OF_CARDINALS = 4
 TurnCounter = NORTH
 
 function Left()
-    turtle.left()
+    turtle.turnLeft()
     TurnCounter = (TurnCounter + 1) % NUMBER_OF_CARDINALS
 end
 
 function Right()
-    turtle.right()
+    turtle.turnRight()
     TurnCounter = (TurnCounter - 1) % NUMBER_OF_CARDINALS
 
     if TurnCounter < 0 then
