@@ -65,14 +65,23 @@ function MoveRelative(dx, dy, dz)
     end
 end
 
+function ToCardinalSpace(dir)
+    dir = dir % NUMBER_OF_CARDINALS
+
+    if dir < 0 then
+        return dir + NUMBER_OF_CARDINALS
+    end
+end
+
 function TurnToCardinal(dir)
-    local ddir = dir - TurnCounter
+    dir = ToCardinalSpace(dir)
+    local ddir = (dir - TurnCounter) % NUMBER_OF_CARDINALS
     if ddir > 0 then
         for i = 1, ddir do
             Right()
         end
     elseif ddir < 0 then
-        for i = 1, ddir do
+        for i = 1, -ddir do
             Left()
         end
     end
@@ -141,7 +150,6 @@ end
 
 function ReturnHome(sx, sy, sz)
     local x, y, z = gps.locate()
-    local dx = x - sx
 end
 
 local sx, sy, sz = gps.locate()
@@ -152,11 +160,11 @@ turtle.forward()
 
 local x, y, z = gps.locate()
 
-MoveRelative(x - sx, y - sy, z - sz)
+MoveRelative(sx - x, sy - y, sz - z)
 
 
 -- while true do
---     MineSquare(3, 3)
+--     MineSquare(3, 3)/
 --     Left()
 --     Left()
 --     turtle.digDown()
