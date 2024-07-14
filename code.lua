@@ -20,6 +20,8 @@ NUMBER_OF_CARDINALS = 4
 
 TurnCounter = NORTH
 
+local sx, sy, sz = gps.locate()
+
 function ClampIntBin(num)
     if num > 0 then
         return 1
@@ -29,6 +31,16 @@ function ClampIntBin(num)
 end
 
 function MoveRelative(dx, dy, dz)
+    if dy > 0 then
+        for i = 1, dy do
+            turtle.up()
+        end
+    elseif dy < 0 then
+        for i = 1, -1 * dy do
+            turtle.down()
+        end
+    end
+
     if dx ~= 0 then
         if dx > 0 then
             TurnToCardinal(POSITIVE_X)
@@ -50,17 +62,6 @@ function MoveRelative(dx, dy, dz)
 
         for i = 1, math.abs(dz) do
             turtle.forward()
-        end
-    end
-
-
-    if dy > 0 then
-        for i = 1, dy do
-            turtle.up()
-        end
-    elseif dy < 0 then
-        for i = 1, -1 * dy do
-            turtle.down()
         end
     end
 end
@@ -134,22 +135,17 @@ function MineSquare(x, z)
     end
 end
 
-function ReturnHome(sx, sy, sz)
+function ReturnHome()
     local x, y, z = gps.locate()
+    MoveRelative(sx - x, sy - y, sz - z)
 end
-
-local sx, sy, sz = gps.locate()
-
 
 turtle.forward()
 turtle.forward()
 Left()
 turtle.forward()
 
-
-local x, y, z = gps.locate()
-
-MoveRelative(sx - x, sy - y, sz - z)
+ReturnHome()
 
 
 -- while true do
