@@ -14,6 +14,19 @@ NUMBER_OF_CARDINALS = 4
 
 TurnCounter = NORTH
 
+function TurnToCardinal(dir)
+    local ddir = dir - TurnCounter
+    if ddir > 0 then
+        for i = 1, ddir do
+            Right()
+        end
+    elseif ddir < 0 then
+        for i = 1, ddir do
+            Left()
+        end
+    end
+end
+
 function PrintDir()
     print(DirToString(TurnCounter))
 end
@@ -72,7 +85,6 @@ function MineSquare(x, z)
                 Right()
             end
         end
-        print(_iz)
     end
 end
 
@@ -83,11 +95,14 @@ end
 
 sx, sy, sz = gps.locate()
 
-while true do
-    MineSquare(3, 3)
-    Left()
-    Left()
-    turtle.digDown()
-    turtle.down()
-    MineSquare(3, 3)
-end
+
+TurnToCardinal(SOUTH)
+
+-- while true do
+--     MineSquare(3, 3)
+--     Left()
+--     Left()
+--     turtle.digDown()
+--     turtle.down()
+--     MineSquare(3, 3)
+-- end
