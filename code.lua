@@ -1,3 +1,38 @@
+local NORTH = 0
+local WEST = 1
+local SOUTH = 2
+local EAST = 3
+
+local DIRS = {
+    [NORTH] = "NORTH",
+    [WEST] = "WEST",
+    [SOUTH] = "SOUTH",
+    [EAST] = "EAST"
+}
+
+NUMBER_OF_CARDINALS = 4
+
+TurnCounter = NORTH
+
+function Left()
+    turtle.left()
+    TurnCounter = (TurnCounter + 1) % NUMBER_OF_CARDINALS
+end
+
+function Right()
+    turtle.right()
+    TurnCounter = (TurnCounter - 1) % NUMBER_OF_CARDINALS
+
+    if TurnCounter < 0 then
+        print("hit less than check")
+        TurnCounter = TurnCounter + NUMBER_OF_CARDINALS
+    end
+end
+
+function DirToString(dir)
+    return DIRS[dir]
+end
+
 function DownUntilStop()
     while turtle.down() do
     end
@@ -18,28 +53,33 @@ function MineSquare(x, z)
         end
         if _iz ~= z then
             if (_iz) % 2 == 0 then
-                turtle.turnLeft()
+                Left()
                 turtle.dig()
                 turtle.forward()
-                turtle.turnLeft()
+                Left()
             else
-                turtle.turnRight()
+                Right()
                 turtle.dig()
                 turtle.forward()
-                turtle.turnRight()
+                Right()
             end
         end
         print(_iz)
     end
 end
 
-DownUntilStop()
+function ReturnHome(sx, sy, sz)
+    local x, y, z = gps.locate()
+    local dx = x - sx
+end
 
-local sx, sy, sz = gps.locate()
-print(sx)
--- MineSquare(3, 3)
--- turtle.turnLeft()
--- turtle.turnLeft()
--- turtle.digDown()
--- turtle.down()
--- MineSquare(3, 3)
+sx, sy, sz = gps.locate()
+
+while true do
+    MineSquare(3, 3)
+    Left()
+    Left()
+    turtle.digDown()
+    turtle.down()
+    MineSquare(3, 3)
+end
